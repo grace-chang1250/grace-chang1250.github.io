@@ -5,10 +5,10 @@ export const site = {
     'I build across the stack, but my favorite part of engineering is figuring out what to build in the first place.',
   pitch:
     'I thrive in the gap between a stakeholder’s messy problem and the first functional prototype. I use AI to rapidly simulate high-fidelity frontend solutions with mock data, then validate the domain logic with real users. I’m moving toward design engineering to own more of the product solution, from empathy to implementation.',
-  emailUser: 'gchang4227',
+  emailUser: 'grace-chang1250',
   emailDomain: 'gmail.com',
   links: {
-    github: 'https://github.com/gchang4227',
+    github: 'https://github.com/grace-chang1250',
     linkedin: 'https://www.linkedin.com/in/gmchang/',
   },
 } as const;
