@@ -141,15 +141,19 @@ export default function PetalBackground() {
       }
 
       reset(canvasWidth, canvasHeight, initial = false) {
-        // Bias toward edges to keep center relatively empty
-        const edgeBias = Math.random() > 0.6;
-        this.x = edgeBias 
-          ? (Math.random() > 0.5 ? Math.random() * 0.3 : 0.7 + Math.random() * 0.3) * canvasWidth
-          : Math.random() * canvasWidth;
-        
-        this.y = initial 
-          ? Math.random() * canvasHeight 
-          : -50 - Math.random() * 100;
+        // For the very first (initial) placement, use a uniform distribution
+        if (initial) {
+          this.x = Math.random() * canvasWidth;
+          this.y = Math.random() * canvasHeight;
+        } else {
+          // Bias toward edges to keep center relatively empty for new petals
+          const edgeBias = Math.random() > 0.6;
+          this.x = edgeBias
+            ? (Math.random() > 0.5 ? Math.random() * 0.3 : 0.7 + Math.random() * 0.3) * canvasWidth
+            : Math.random() * canvasWidth;
+
+          this.y = -50 - Math.random() * 100;
+        }
         
         this.size = 10 + Math.random() * 38; // 10-48px
         this.variant = Math.floor(Math.random() * 4);
