@@ -6,9 +6,3 @@ dist
 .tanstack
 .wrangler
 assets
-# ignore local debug files
-live.html
-live2.html
-run_jobs.json
-runs.json
-*.png
