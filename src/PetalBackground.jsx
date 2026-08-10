@@ -192,9 +192,8 @@ export default function PetalBackground() {
       }
     }
 
-    // Create petals
-    const PETAL_COUNT = window.innerWidth < 768 ? 12 : 24;
-    const petals = Array.from({ length: PETAL_COUNT }, () => new Petal(canvas.width, canvas.height));
+    // Create petals (will initialize after canvas sizing below)
+    let petals = [];
 
     // Animation loop
     let animationId;
@@ -234,13 +233,18 @@ export default function PetalBackground() {
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      // Recreate petals so positions use the new canvas size
+      const PETAL_COUNT = window.innerWidth < 768 ? 12 : 24;
+      petals = Array.from({ length: PETAL_COUNT }, () => new Petal(canvas.width, canvas.height));
     };
 
     window.addEventListener('resize', handleResize);
 
-    // Start animation
+    // Start animation: size canvas first, then create petals so initial positions are distributed correctly
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    const PETAL_COUNT = window.innerWidth < 768 ? 12 : 24;
+    petals = Array.from({ length: PETAL_COUNT }, () => new Petal(canvas.width, canvas.height));
     animationId = requestAnimationFrame(animate);
 
     // Cleanup
