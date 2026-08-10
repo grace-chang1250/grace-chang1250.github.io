@@ -1,24 +1,35 @@
-# Free To Use
+# grace-chang1250.github.io
 
-is this free
+Software engineer portfolio built with React and Vite.
 
-This project was built with [Lovable](https://lovable.dev).
+## Prerequisites
 
-## Build with Lovable
+- Node.js (recommended v18 or newer)
+- npm (bundled with Node.js)
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/3554eff3-fb59-43db-98ea-bec7db73ba30).
+## Run locally
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+Clone the repo, install dependencies, and start the dev server:
 
 ```sh
 git clone <this-repository-url>
 cd <repository-name>
-npm i
+npm ci
 npm run dev
+# open http://localhost:5173
 ```
+
+## Build & Preview
+
+Create a production build and preview it locally:
+
+```sh
+npm run build
+npm run preview
+# preview served at http://localhost:5173
+```
+
+## Notes
+
+- CI: this repository uses GitHub Actions to build and deploy the `dist/` output to GitHub Pages.
+- The `public/` folder contains static assets (favicon, images) copied to the build output.
