@@ -1,0 +1,8 @@
+# Static site - no build needed
+node_modules
+dist
+.output
+.lovable
+.tanstack
+.wrangler
+public
