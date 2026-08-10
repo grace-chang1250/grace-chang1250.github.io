@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grace Chang — redirecting</title>
+    <script>
+      const base = '/';
+      const path = location.pathname.startsWith(base)
+        ? location.pathname.slice(base.length)
+        : location.pathname.slice(1);
+      sessionStorage.setItem('redirectPath', '/' + path + location.search + location.hash);
+      location.replace(base);
+    </script>
+  </head>
+  <body></body>
+</html>
