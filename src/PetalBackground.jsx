@@ -237,19 +237,25 @@ export default function PetalBackground() {
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      // Recreate petals so positions use the new canvas size
+      // Recreate petals so positions use the new canvas size, defer to next paint
       const PETAL_COUNT = window.innerWidth < 768 ? 12 : 24;
-      petals = Array.from({ length: PETAL_COUNT }, () => new Petal(canvas.width, canvas.height));
+      requestAnimationFrame(() => {
+        petals = Array.from({ length: PETAL_COUNT }, () => new Petal(canvas.width || window.innerWidth, canvas.height || window.innerHeight));
+      });
     };
 
     window.addEventListener('resize', handleResize);
 
-    // Start animation: size canvas first, then create petals so initial positions are distributed correctly
+    // Start animation: size canvas first, then defer petal creation to next paint
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const PETAL_COUNT = window.innerWidth < 768 ? 12 : 24;
-    petals = Array.from({ length: PETAL_COUNT }, () => new Petal(canvas.width, canvas.height));
-    animationId = requestAnimationFrame(animate);
+
+    // Defer creation so canvas layout is stable (avoids zero-width clustering)
+    requestAnimationFrame(() => {
+      petals = Array.from({ length: PETAL_COUNT }, () => new Petal(canvas.width || window.innerWidth, canvas.height || window.innerHeight));
+      animationId = requestAnimationFrame(animate);
+    });
 
     // Cleanup
     return () => {
