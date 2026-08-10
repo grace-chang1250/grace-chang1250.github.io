@@ -6,3 +6,5 @@ dist
 .tanstack
 .wrangler
 public
+assets
+index.html
