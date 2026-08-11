@@ -133,15 +133,13 @@ function App() {
         <section id="experience" className="experience">
           <div className="section-header">
             <h2>Career Trajectory</h2>
-            <h3>Four years, four Dell rotations: front end, backend, infrastructure, and full stack.</h3>
+            <h3>Four years, four Dell rotations: frontend, backend, infrastructure, and full stack.</h3>
           </div>
 
           <p className="timeline-path" aria-label="Career timeline summary">
-            <span className="timeline-path-entry"><time dateTime="2021">2021</time> · Liberty Mutual <span>(Software engineering intern)</span></span>
+            <span className="timeline-path-entry"><time dateTime="2021">2021-2022</time> · Software Engineering Intern <span>- Liberty Mutual, IBM</span></span>
             <span className="timeline-path-divider" aria-hidden="true">|</span>
-            <span className="timeline-path-entry"><time dateTime="2022">2022</time> · IBM <span>(Software engineering intern)</span></span>
-            <span className="timeline-path-divider" aria-hidden="true">|</span>
-            <span className="timeline-path-entry"><time dateTime="2023/2026">2023–2026</time> · Dell Technologies <span>(Software Engineer I &amp; II)</span></span>
+            <span className="timeline-path-entry"><time dateTime="2023/2026">2023–2026</time> · Software Engineer I & II <span>- Dell Technologies</span></span>
           </p>
 
           <div className="timeline">
