@@ -136,23 +136,13 @@ function App() {
             <h3>Four years, four Dell rotations: front end, backend, infrastructure, and full stack.</h3>
           </div>
 
-          <div className="timeline-path">
-            <div className="timeline-path-item">
-              <span className="timeline-path-year">2021</span>
-              <strong>Liberty Mutual</strong>
-              <small>Software engineering intern</small>
-            </div>
-            <div className="timeline-path-item">
-              <span className="timeline-path-year">2022</span>
-              <strong>IBM</strong>
-              <small>Software engineering intern</small>
-            </div>
-            <div className="timeline-path-item">
-              <span className="timeline-path-year">2023–2026</span>
-              <strong>Dell Technologies</strong>
-              <small>Software Engineer I & II</small>
-            </div>
-          </div>
+          <p className="timeline-path" aria-label="Career timeline summary">
+            <span className="timeline-path-entry"><time dateTime="2021">2021</time> · Liberty Mutual <span>(Software engineering intern)</span></span>
+            <span className="timeline-path-divider" aria-hidden="true">|</span>
+            <span className="timeline-path-entry"><time dateTime="2022">2022</time> · IBM <span>(Software engineering intern)</span></span>
+            <span className="timeline-path-divider" aria-hidden="true">|</span>
+            <span className="timeline-path-entry"><time dateTime="2023/2026">2023–2026</time> · Dell Technologies <span>(Software Engineer I &amp; II)</span></span>
+          </p>
 
           <div className="timeline">
             {timeline.map((item) => {
