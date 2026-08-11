@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import PetalBackground from './PetalBackground'
 import TimelineItem from './components/TimelineItem'
 import { PrototypeWindow } from './components/PatentReviewDemo.tsx'
@@ -7,91 +7,81 @@ import './App.css'
 
 function App() {
   const [open, setOpen] = useState(null)
-  const [showPrototype, setShowPrototype] = useState(false)
+  const [prototype, setPrototype] = useState(null)
+  const scrollPosition = useRef({ x: 0, y: 0 })
+  const savedStyles = useRef(null)
+  const closeTimer = useRef(null)
 
   const toggleDetails = (itemId) => {
     setOpen((current) => (current === itemId ? null : itemId))
   }
 
-  const launchPrototype = (e, label, triggerElement) => {
-    e.preventDefault()
-    
-    // Capture scroll position before opening
-    const scrollPosition = {
-      x: window.scrollX,
-      y: window.scrollY
-    }
-    
-    // Get trigger element position for morph animation
-    const triggerRect = triggerElement?.getBoundingClientRect() || { x: 0, y: 0, width: 0, height: 0 }
-    
-    // Store for restoration
-    window.prototypeScrollPosition = scrollPosition
-    window.prototypeTriggerRect = triggerRect
-    
-    // Lock body scroll
-    document.body.style.overflow = 'hidden'
-    document.body.style.position = 'fixed'
-    document.body.style.top = `-${scrollPosition.y}px`
-    document.body.style.left = `-${scrollPosition.x}px`
-    
-    setShowPrototype(true)
-    
-    // Start morph animation
-    setTimeout(() => {
-      const overlay = document.querySelector('.prototype-overlay')
-      if (overlay) {
-        overlay.classList.add('active')
-        overlay.style.setProperty('--trigger-x', `${triggerRect.left}px`)
-        overlay.style.setProperty('--trigger-y', `${triggerRect.top}px`)
-        overlay.style.setProperty('--trigger-width', `${triggerRect.width}px`)
-        overlay.style.setProperty('--trigger-height', `${triggerRect.height}px`)
-      }
-    }, 50)
-  }
+  const lockPage = useCallback(() => {
+    const { scrollX: x, scrollY: y } = window
+    const body = document.body
+    const html = document.documentElement
+    scrollPosition.current = { x, y }
+    savedStyles.current = { body: { position: body.style.position, top: body.style.top, left: body.style.left, width: body.style.width, overflow: body.style.overflow }, html: { overflow: html.style.overflow } }
+    html.style.overflow = 'hidden'
+    body.style.position = 'fixed'
+    body.style.top = `${-y}px`
+    body.style.left = `${-x}px`
+    body.style.width = '100%'
+    body.style.overflow = 'hidden'
+  }, [])
 
-  const closePrototype = () => {
-    const overlay = document.querySelector('.prototype-overlay')
-    
-    // Reverse morph animation
-    overlay?.classList.remove('active')
-    
-    setTimeout(() => {
-      setShowPrototype(false)
-      
-      // Restore scroll position
-      const scrollPosition = window.prototypeScrollPosition || { x: 0, y: 0 }
-      
-      // Restore body scroll
-      document.body.style.overflow = ''
-      document.body.style.position = ''
-      document.body.style.top = ''
-      document.body.style.left = ''
-      
-      // Restore scroll position
-      window.scrollTo(scrollPosition.x, scrollPosition.y)
-      
-      // Clean up stored values
-      delete window.prototypeScrollPosition
-      delete window.prototypeTriggerRect
-    }, 600)
-  }
+  const restorePage = useCallback(() => {
+    const saved = savedStyles.current
+    if (!saved) return
+    const body = document.body
+    body.style.position = saved.body.position
+    body.style.top = saved.body.top
+    body.style.left = saved.body.left
+    body.style.width = saved.body.width
+    body.style.overflow = saved.body.overflow
+    // The overlay remains visible while this runs, preventing a visible jump.
+    window.scrollTo({ left: scrollPosition.current.x, top: scrollPosition.current.y, behavior: 'auto' })
+    document.documentElement.style.overflow = saved.html.overflow
+    savedStyles.current = null
+  }, [])
+
+  const launchPrototype = useCallback((e) => {
+    e.preventDefault()
+    const rect = e.currentTarget.getBoundingClientRect()
+    lockPage()
+    setPrototype({ rect, phase: 'entering' })
+    requestAnimationFrame(() => setPrototype((current) => current && { ...current, phase: 'open' }))
+  }, [lockPage])
+
+  const closePrototype = useCallback(() => {
+    setPrototype((current) => current && { ...current, phase: 'closing' })
+    window.clearTimeout(closeTimer.current)
+    closeTimer.current = window.setTimeout(() => {
+      restorePage()
+      setPrototype(null)
+    }, 640)
+  }, [restorePage])
 
   // Handle Escape key to close prototype
   useEffect(() => {
     const handleEscape = (e) => {
-      if (e.key === 'Escape' && showPrototype) {
+      if (e.key === 'Escape' && prototype) {
         closePrototype()
       }
     }
     
     window.addEventListener('keydown', handleEscape)
     return () => window.removeEventListener('keydown', handleEscape)
-  }, [showPrototype])
+  }, [prototype, closePrototype])
+
+  useEffect(() => () => {
+    window.clearTimeout(closeTimer.current)
+    restorePage()
+  }, [restorePage])
 
   return (
     <>
-      <div className={`app ${showPrototype ? 'prototype-active' : ''}`}>
+      <div className={`app ${prototype ? 'prototype-active' : ''}`}>
         <PetalBackground />
         <nav>
           <div className="nav-content">
@@ -207,8 +197,8 @@ function App() {
         </footer>
       </div>
 
-      {showPrototype && (
-        <div className="prototype-overlay">
+      {prototype && (
+        <div className={`prototype-overlay prototype-${prototype.phase}`} style={{ '--origin-left': `${prototype.rect.left}px`, '--origin-top': `${prototype.rect.top}px`, '--origin-width': `${prototype.rect.width}px`, '--origin-height': `${prototype.rect.height}px` }}>
           <PrototypeWindow onClose={closePrototype} skipOverlay={true} />
         </div>
       )}

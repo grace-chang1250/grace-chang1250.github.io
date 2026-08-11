@@ -1,7 +1,4 @@
-import { useRef } from 'react'
-
 export default function TimelineItem({ item, isOpen, onToggle, onLaunchPrototype }) {
-  const triggerRef = useRef(null)
   return (
     <div className="timeline-item">
       <button
@@ -38,10 +35,8 @@ export default function TimelineItem({ item, isOpen, onToggle, onLaunchPrototype
               {item.links.map((link) => (
                 <button
                   key={link.href}
-                  ref={triggerRef}
                   onClick={(e) => {
-                    e.preventDefault()
-                    onLaunchPrototype(e, link.label, triggerRef.current)
+                    onLaunchPrototype(e)
                   }}
                   className="prototype-trigger-link"
                 >
