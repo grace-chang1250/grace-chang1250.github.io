@@ -7,6 +7,9 @@ export const timeline = [
     org: 'Dell Technologies',
     summary: 'Containerized Total Cost of Ownership platform with two PdMs — multi-step wizard, real-time ROI engine, Okta SSO, RBAC — then prototyped a patent-assignment MVP as sole stakeholder while mentoring four interns.',
     stack: ['React', 'Python', 'Docker', 'SQLite', 'Okta OIDC'],
+    links: [
+      { href: '#patent-project', label: 'View the Project UI Prototype' },
+    ],
   },
   {
     id: 'dell-rotation-iii',

@@ -1,0 +1,80 @@
+.case-study-details {
+  padding: 3rem 1.5rem 4rem;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.case-study-detail-card {
+  padding: 2rem;
+  margin-bottom: 2rem;
+  background: rgba(248, 246, 243, 0.95);
+  border: 1px solid rgba(51, 33, 19, 0.12);
+  border-radius: 1.25rem;
+}
+
+.case-study-detail-header {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.case-study-detail-header .card-eyebrow {
+  color: var(--blush);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.case-study-detail-header h2 {
+  font-size: 2rem;
+  line-height: 1.05;
+}
+
+.detail-summary {
+  margin: 0.75rem 0 0;
+  color: var(--espresso);
+  line-height: 1.8;
+}
+
+.detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  color: var(--muted-foreground);
+  font-size: 0.95rem;
+}
+
+.detail-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.detail-grid section,
+.project-focus {
+  background: rgba(255, 250, 245, 0.9);
+  padding: 1.25rem;
+  border: 1px solid rgba(51, 33, 19, 0.08);
+  border-radius: 1rem;
+}
+
+.detail-grid h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.detail-grid p {
+  margin: 0;
+  line-height: 1.75;
+}
+
+@media (min-width: 900px) {
+  .detail-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.patent-demo-section {
+  margin-top: 2rem;
+}

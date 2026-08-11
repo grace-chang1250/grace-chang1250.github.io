@@ -1,0 +1,322 @@
+.patent-demo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(51, 33, 19, 0.12);
+  border-radius: 1rem;
+  background: rgba(255, 250, 245, 0.95);
+}
+
+.patent-demo-card h3 {
+  margin: 0.5rem 0 0;
+}
+
+.patent-demo-card .card-eyebrow {
+  color: var(--blush);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.patent-demo-button,
+.primary-button {
+  align-self: flex-start;
+  padding: 0.9rem 1.25rem;
+  border: 1px solid rgba(51, 33, 19, 0.12);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--espresso);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.patent-demo-button:hover,
+.primary-button:hover {
+  background: rgba(203, 162, 161, 0.14);
+}
+
+.patent-demo-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 17, 15, 0.94);
+  display: grid;
+  place-items: stretch;
+  padding: 0;
+  z-index: 500;
+  animation: fadeIn 220ms ease;
+}
+
+.patent-demo-window {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+  animation: fadeInUp 220ms ease;
+}
+
+.patent-demo-window-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(51, 33, 19, 0.12);
+  background: #f8f5ec;
+}
+
+.patent-demo-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(51, 33, 19, 0.08);
+  background: #f8f5ec;
+}
+
+.patent-demo-tabs button {
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(51, 33, 19, 0.12);
+  border-radius: 999px;
+  background: #f8f5ec;
+  color: var(--espresso);
+  cursor: pointer;
+}
+
+.patent-demo-tabs button.active {
+  background: rgba(203, 162, 161, 0.16);
+  border-color: var(--blush);
+}
+
+.patent-demo-screen {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 0;
+}
+
+.patent-demo-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem 1.5rem;
+  background: #f7f3ee;
+  border-right: 1px solid rgba(51, 33, 19, 0.08);
+}
+
+.patent-sidebar-heading h4 {
+  margin: 0.25rem 0 0;
+  font-size: 1.1rem;
+}
+
+.patent-step-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.patent-step-item {
+  display: grid;
+  align-items: start;
+  gap: 0.25rem;
+  padding: 1rem;
+  border: 1px solid rgba(51, 33, 19, 0.12);
+  border-radius: 1rem;
+  background: #fff;
+  text-align: left;
+  color: var(--espresso);
+  cursor: pointer;
+}
+
+.patent-step-item.active {
+  border-color: var(--blush);
+  background: rgba(203, 162, 161, 0.14);
+}
+
+.patent-step-item span {
+  font-weight: 700;
+}
+
+.patent-step-item small {
+  display: block;
+  color: var(--muted-foreground);
+}
+
+.patent-sidebar-card {
+  padding: 1rem;
+  border: 1px solid rgba(51, 33, 19, 0.12);
+  border-radius: 1rem;
+  background: #fff;
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(203, 162, 161, 0.16);
+  color: var(--espresso);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.patent-demo-main {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.patent-demo-step-banner {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid rgba(51, 33, 19, 0.08);
+  background: #fff;
+}
+
+.patent-demo-step-banner h2 {
+  margin: 0.25rem 0 0;
+  font-size: clamp(1.8rem, 2.2vw, 2.4rem);
+}
+
+.patent-demo-step-banner p {
+  margin: 0.5rem 0 0;
+  max-width: 46rem;
+  line-height: 1.7;
+}
+
+.step-highlight {
+  display: block;
+  max-width: 26rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background: rgba(203, 162, 161, 0.12);
+  color: var(--espresso);
+}
+
+.patent-demo-panel {
+  padding: 1.5rem 2rem;
+  overflow: auto;
+  min-height: 0;
+}
+
+.panel-label {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.patent-demo-panel > div {
+  animation: fadeIn 180ms ease;
+}
+
+.analysis-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.analysis-list,
+.assignment-list,
+.portal-card {
+  margin-top: 1rem;
+  border: 1px solid rgba(51, 33, 19, 0.12);
+  background: rgba(255, 250, 245, 0.9);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.analysis-item,
+.assignment-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(51, 33, 19, 0.08);
+}
+
+.analysis-item:last-child,
+.assignment-item:last-child {
+  border-bottom: none;
+}
+
+.analysis-item strong,
+.assignment-item strong {
+  display: block;
+}
+
+.analysis-item small,
+.assignment-item small {
+  display: block;
+  color: var(--muted-foreground);
+  margin-top: 0.35rem;
+}
+
+.analysis-item span,
+.assignment-item span {
+  color: var(--muted-foreground);
+  align-self: center;
+}
+
+.empty-state {
+  padding: 1.2rem;
+  color: var(--muted-foreground);
+}
+
+.assignment-item {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid rgba(51, 33, 19, 0.08);
+}
+
+.assignment-item:last-child {
+  border-bottom: none;
+}
+
+.patent-demo-footer {
+  padding: 1.25rem 2rem 2rem;
+  border-top: 1px solid rgba(51, 33, 19, 0.08);
+  background: #f8f5ec;
+}
+
+.patent-demo-inline {
+  border: 1px solid rgba(51, 33, 19, 0.12);
+  border-radius: 1.25rem;
+  background: rgba(255, 250, 245, 0.95);
+  padding: 1rem;
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid rgba(51, 33, 19, 0.12);
+  border-radius: 0.85rem;
+  padding: 0.85rem 1rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.close-button {
+  border: none;
+  background: none;
+  color: var(--espresso);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .patent-demo-tabs {
+    grid-template-columns: 1fr;
+  }
+}

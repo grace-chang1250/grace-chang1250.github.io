@@ -21,6 +21,93 @@
   z-index: 1;
 }
 
+.app.prototype-active {
+  display: none;
+}
+
+/* Prototype Overlay with shared-element morph animation */
+.prototype-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background-color: #fbfaff;
+  opacity: 0;
+  transform: 
+    translate(var(--trigger-x, 50vw), var(--trigger-y, 50vh))
+    scale(calc(var(--trigger-width, 100px) / 100vw), calc(var(--trigger-height, 20px) / 100vh));
+  transform-origin: top left;
+  border-radius: 8px;
+  transition: 
+    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    border-radius 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.prototype-overlay.active {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+  border-radius: 0;
+  pointer-events: auto;
+}
+
+/* Scale down and blur the background app when prototype is active */
+.app.prototype-active {
+  transform: scale(0.95);
+  filter: blur(4px);
+  opacity: 0.8;
+  transition: 
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+/* Prototype trigger link styling */
+.prototype-trigger-link {
+  background: none;
+  border: none;
+  border-bottom: 1px solid currentColor;
+  color: #cba2a1;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+  text-decoration: none;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.prototype-trigger-link:hover {
+  color: #a16c32;
+  border-color: #a16c32;
+}
+
+.prototype-trigger-link:focus {
+  outline: 2px solid #cba2a1;
+  outline-offset: 2px;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .prototype-overlay {
+    transition: opacity 0.3s ease;
+    transform: none;
+    border-radius: 0;
+  }
+  
+  .prototype-overlay.active {
+    transform: none;
+  }
+  
+  .app.prototype-active {
+    transform: none;
+    filter: none;
+    opacity: 1;
+  }
+}
+
+
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .petal-background {
@@ -245,13 +332,13 @@ nav {
 
 /* Experience Section */
 .experience {
-  padding: 5rem 1.5rem;
+  padding: 3.25rem 1.5rem 2.5rem;
   max-width: 64rem;
   margin: 0 auto;
 }
 
 .section-header {
-  margin-bottom: 3rem;
+  margin-bottom: 1.75rem;
 }
 
 .section-header h2 {
@@ -277,10 +364,59 @@ nav {
   }
 }
 
+.timeline-path {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 2.25rem;
+}
+
+.timeline-path-item {
+  position: relative;
+  padding: 0.95rem 1rem 0.85rem;
+  background-color: rgba(203, 162, 161, 0.12);
+  border-left: 3px solid var(--blush);
+  border-radius: 1rem;
+  min-height: auto;
+}
+
+.timeline-path-item::before {
+  display: none;
+}
+
+.timeline-path-year {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: #7b3b44;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.timeline-path-item strong {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+}
+
+.timeline-path-item small {
+  color: var(--muted-foreground);
+  font-size: 0.82rem;
+}
+
 .timeline {
   border-left: 1px solid var(--border);
   padding-left: 0;
 }
+
+@media (max-width: 860px) {
+  .timeline-path {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 .timeline-item {
   position: relative;
@@ -302,6 +438,12 @@ nav {
   height: 0.5rem;
   border-radius: 50%;
   background-color: #cba2a1;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-item:hover::before {
+  transform: scale(1.5);
+  background-color: #581b28b6;
 }
 
 .timeline-header {
@@ -346,6 +488,9 @@ nav {
   color: var(--espresso);
   font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: baseline;
+  gap: 0;
 }
 
 .timeline-header:hover .timeline-org {
@@ -353,15 +498,32 @@ nav {
 }
 
 .timeline-toggle {
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  color: rgba(92, 77, 66, 0.8);
-  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--espresso);
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.225s cubic-bezier(0.4, 0, 0.2, 1), transform 0.225s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateX(-4px);
+  display: inline-block;
+  white-space: pre;
+  margin-left: 0.5rem;
 }
 
 .timeline-header:hover .timeline-toggle {
   color: #581b28b6;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.timeline-toggle-visible {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: #581b28b6;
+  display: inline-block;
+  white-space: pre;
+  margin-left: 0.5rem;
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .timeline-period {
@@ -369,12 +531,17 @@ nav {
   color: var(--espresso);
   white-space: nowrap;
   font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (min-width: 768px) {
   .timeline-period {
     text-align: right;
   }
+}
+
+.timeline-header:hover .timeline-period {
+  color: #581b28b6;
 }
 
 .timeline-details {
@@ -391,10 +558,14 @@ nav {
 }
 
 .timeline-details-content {
-  background-color: rgba(51, 33, 19, 0.08);
-  border: 1px solid rgba(51, 33, 19, 0.15);
-  border-radius: 0.75rem;
-  padding: 1rem;
+  padding: 1rem 0;
+}
+
+.timeline-divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--border);
+  margin-bottom: 1rem;
 }
 
 .timeline-role {
@@ -419,17 +590,52 @@ nav {
   margin-top: 0.75rem;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0;
 }
 
-.chip {
-  font-size: 0.625rem;
-  padding: 0.25rem 0.5rem;
-  font-weight: 500;
-  border-radius: 0.25rem;
-  background-color: rgba(248, 246, 243, 0.55);
-  border: 1px solid rgba(51, 33, 19, 0.07);
+.tech-item {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  font-weight: 400;
 }
+
+.tech-separator {
+  color: var(--muted-foreground);
+  opacity: 0.5;
+  margin: 0 0.25rem;
+}
+
+.timeline-action-links {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.timeline-action-link {
+  color: var(--espresso);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.timeline-action-link:hover {
+  border-bottom-color: var(--blush);
+}
+
+/* Patent Project Section */
+.patent-project {
+  padding: 3rem 1.5rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+/* Prototype Overlay - handled by component styles */
 
 /* About Section */
 .about {
