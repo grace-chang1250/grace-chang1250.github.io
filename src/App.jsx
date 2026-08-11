@@ -11,6 +11,7 @@ function App() {
   const scrollPosition = useRef({ x: 0, y: 0 })
   const savedStyles = useRef(null)
   const closeTimer = useRef(null)
+  const closeFrame = useRef(null)
 
   const toggleDetails = (itemId) => {
     setOpen((current) => (current === itemId ? null : itemId))
@@ -30,7 +31,7 @@ function App() {
     body.style.overflow = 'hidden'
   }, [])
 
-  const restorePage = useCallback(() => {
+  const restorePagePositionBehindOverlay = useCallback(() => {
     const saved = savedStyles.current
     if (!saved) return
     const body = document.body
@@ -39,8 +40,13 @@ function App() {
     body.style.left = saved.body.left
     body.style.width = saved.body.width
     body.style.overflow = saved.body.overflow
-    // The overlay remains visible while this runs, preventing a visible jump.
+    // The fullscreen prototype remains opaque while the browser returns to this exact offset.
     window.scrollTo({ left: scrollPosition.current.x, top: scrollPosition.current.y, behavior: 'auto' })
+  }, [])
+
+  const unlockPage = useCallback(() => {
+    const saved = savedStyles.current
+    if (!saved) return
     document.documentElement.style.overflow = saved.html.overflow
     savedStyles.current = null
   }, [])
@@ -54,13 +60,24 @@ function App() {
   }, [lockPage])
 
   const closePrototype = useCallback(() => {
-    setPrototype((current) => current && { ...current, phase: 'closing' })
+    if (!prototype || prototype.phase === 'closing') return
     window.clearTimeout(closeTimer.current)
-    closeTimer.current = window.setTimeout(() => {
-      restorePage()
-      setPrototype(null)
-    }, 640)
-  }, [restorePage])
+    cancelAnimationFrame(closeFrame.current)
+
+    // Restore the fixed body and its scroll offset before the exit animation begins.
+    // Keep html locked until the morph is complete so keyboard/touch cannot move the page.
+    restorePagePositionBehindOverlay()
+    closeFrame.current = requestAnimationFrame(() => {
+      // A second frame guarantees the restored page has painted underneath the opaque prototype.
+      closeFrame.current = requestAnimationFrame(() => {
+        setPrototype((current) => current && { ...current, phase: 'closing' })
+        closeTimer.current = window.setTimeout(() => {
+          unlockPage()
+          setPrototype(null)
+        }, 640)
+      })
+    })
+  }, [prototype, restorePagePositionBehindOverlay, unlockPage])
 
   // Handle Escape key to close prototype
   useEffect(() => {
@@ -76,8 +93,10 @@ function App() {
 
   useEffect(() => () => {
     window.clearTimeout(closeTimer.current)
-    restorePage()
-  }, [restorePage])
+    cancelAnimationFrame(closeFrame.current)
+    restorePagePositionBehindOverlay()
+    unlockPage()
+  }, [restorePagePositionBehindOverlay, unlockPage])
 
   return (
     <>
