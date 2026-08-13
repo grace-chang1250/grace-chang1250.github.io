@@ -166,8 +166,8 @@ function App() {
             <div className="about-text">
               <h2>Adaptable by design.</h2>
               <div className="about-text-content">
-                <p>I thrive in technical ambiguity. Three and a half years in the Dell Engineering Rotation Program taught me that the strongest engineers aren't masters of a single language—they're architects who can absorb a new domain quickly and ship. I went from Angular UI components to Ansible validation tooling to Golang control planes to full-stack React and AI-assisted delivery.</p>
-                <p>Beyond the terminal, I build processes and people. I mentored four summer interns across four projects, ran requirement-gathering sessions directly with product owners, and turned raw stakeholder pain points into working prototypes.</p>
+                <p>I thrive in technical ambiguity. Three and a half years in the Dell Engineering Rotation Program taught me that the strongest engineers aren't masters of a single language—they're architects who can absorb a new domain quickly and ship. I went from Angular UI components to Ansible and Python validation tooling to Golang and Kubernetes control planes to full-stack React and Python and AI-assisted delivery.</p>
+                <p>Beyond the terminal, I build processes and people. I mentored four summer interns across four projects, built onboarding documentation, ran requirement-gathering sessions directly with product owners, and turned raw stakeholder pain points into working prototypes.</p>
                 <div className="toolkit">
                   <h4>Current Toolkit</h4>
                   <div className="toolkit-items">
@@ -186,10 +186,10 @@ function App() {
           <div className="contact-content">
             <div className="contact-text">
               <h2>Ready for the<br />next challenge.</h2>
-              <p>Currently seeking mid-to-senior software engineering roles in platform engineering, infrastructure, or full-stack product teams.</p>
+              <p>Currently seeking mid-to-senior frontend or fullstack software engineering roles in product teams.</p>
             </div>
             <div className="contact-links">
-              <a href="mailto:hello@example.com" className="contact-email">hello@example.com</a>
+              <a href="mailto:grace.chang1250@gmail.com" className="contact-email">grace.chang1250@gmail.com</a>
               <div className="social-links">
                 <a href="#">LinkedIn</a>
                 <a href="#">GitHub</a>
