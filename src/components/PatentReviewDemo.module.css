@@ -34,6 +34,11 @@
   --color-danger-bg: #ffe4e6;
 }
 
+/* Keep the technical type treatment contained to the patent prototype. */
+.launchCard, .window {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
 /* Card Overrides */
 .launchCard {
   display: flex;
@@ -91,11 +96,11 @@
 .closeButton:hover { background: var(--color-surface-alt); }
 
 .windowBody { display: grid; grid-template-columns: 250px minmax(0, 1fr); height: calc(100vh - 57px); overflow: hidden; }
-.sidebar { display: flex; flex-direction: column; padding: 26px 16px; background: var(--color-surface-alt); border-right: 1px solid var(--color-border); overflow-y: auto; }
+.sidebar { display: flex; flex-direction: column; padding: 26px 16px; background: #fff; border-right: 1px solid var(--color-border); overflow-y: auto; }
 .sidebar h2 { margin: 5px 0 28px; font-size: 1.2rem; }
-.stepNav { display: grid; gap: 6px; }
+.stepNav { display: grid; gap: 6px; background: #fff; }
 
-.stepButton { display: flex; align-items: center; gap: 10px; padding: 10px; border: 0; border-radius: var(--radius-sm); background: transparent; color: var(--color-text-muted); text-align: left; font-size: .83rem; }
+.stepButton { display: flex; align-items: center; gap: 10px; padding: 10px; border: 0; border-radius: var(--radius-sm); background: #fff; color: var(--color-text-muted); text-align: left; font-size: .83rem; }
 .stepButton span { display: grid; place-items: center; width: 24px; height: 24px; border: 1px solid var(--color-border); border-radius: 50%; font-size: .7rem; }
 .stepButton:not(:disabled):hover { background: var(--color-surface); color: var(--color-text); }
 .stepButton:disabled { cursor: not-allowed; opacity: .45; }
@@ -331,7 +336,7 @@
 
 .stepButton { grid-template-columns: 1fr; gap: 4px; }
 .stepButton span { display: none; }
-.volunteerSection { margin-top: 12px; padding-top: 14px; border-top: 1px solid var(--color-border); }
+.volunteerSection { margin-top: 12px; padding-top: 14px; background: #fff; border-top: 1px solid var(--color-border); }
 .volunteerSection > p { margin: 0 10px 5px; color: var(--color-text-muted); font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 
 .reviewPlanFields { display: grid; grid-template-columns: minmax(150px, .65fr) minmax(230px, 1.35fr); grid-column: 1 / -1; gap: 12px; }
