@@ -28,7 +28,7 @@ type Assignment = {
   status: 'suggested' | 'approved' | 'needs-review';
 };
 
-type Tab = 'analyze' | 'review' | 'team' | 'preferences' | 'send' | 'portal';
+type Tab = 'case_study' | 'analyze' | 'review' | 'team' | 'preferences' | 'send' | 'portal';
 type LeftoverStrategy = 'random' | 'manual';
 
 const patents: Patent[] = [
@@ -69,6 +69,7 @@ const tabItems: { id: Tab; label: string; caption: string }[] = [
   { id: 'team', label: 'Team', caption: 'Capacity & skills' },
   { id: 'preferences', label: 'Preferences', caption: 'Routing rules' },
   { id: 'portal', label: 'My portal', caption: 'Assignee view' },
+  { id: 'case_study', label: 'Case Study', caption: 'How we built this' },
 ];
 
 function ReviewPlanningControls({ memberMode, selectedReviewerIds, reviewers, patentsPerReviewer, leftoverStrategy, onModeChange, onToggleSelect, onPatentsPerReviewerChange, onLeftoverStrategyChange }: { memberMode: 'all' | 'selected'; selectedReviewerIds: string[]; reviewers: Reviewer[]; patentsPerReviewer: string; leftoverStrategy: LeftoverStrategy; onModeChange: (mode: 'all' | 'selected') => void; onToggleSelect: (id: string) => void; onPatentsPerReviewerChange: (value: string) => void; onLeftoverStrategyChange: (value: LeftoverStrategy) => void }) {
@@ -141,6 +142,7 @@ export function PrototypeWindow({ onClose, skipOverlay = false }: { onClose: () 
     <header className={styles.windowHeader}><div className={styles.windowBrand}><span className={styles.brandMark}>P</span><div><strong id="prototype-title">PatentFlow</strong><span>Internal review workspace · April intake</span></div></div><button type="button" className={styles.closeButton} onClick={onClose} aria-label="Close prototype">×</button></header>
     <div className={styles.windowBody}><aside className={styles.sidebar}><p className={styles.sidebarLabel}>Committee lead</p><h2>Review workspace</h2><nav className={styles.stepNav} aria-label="Prototype tabs">{tabItems.map((item) => item.id === 'preferences' ? <div className={styles.volunteerSection} key={item.id}><p>Patent Volunteers</p><button type="button" className={[styles.stepButton, tab === item.id ? styles.activeStep : ''].filter(Boolean).join(' ')} onClick={() => setTab(item.id)}><strong>{item.label}</strong><small>{item.caption}</small></button></div> : <button type="button" key={item.id} className={[styles.stepButton, tab === item.id ? styles.activeStep : ''].filter(Boolean).join(' ')} onClick={() => setTab(item.id)}><strong>{item.label}</strong><small>{item.caption}</small></button>)}</nav><div className={styles.sidebarNote}><span className={styles.statusDot} /> Local model connected<p>Mock environment · no files leave this demo</p></div></aside>
       <main className={styles.workspace}><div className={styles.workspaceTop}><div><p className={styles.kicker}>Workspace / {tabItems.find((item) => item.id === tab)?.label}</p><h2>{tabItems.find((item) => item.id === tab)?.caption}</h2></div><span className={styles.mockBadge}>Interactive prototype</span></div>
+        {tab === 'case_study' && <CaseStudyPanel />}
         {tab === 'analyze' && <AnalyzePanel isAnalyzing={isAnalyzing} hasAnalyzed={hasAnalyzed} onAnalyze={simulateAnalysis} onContinue={() => setTab('review')} />}
         {tab === 'review' && <><ReviewPlanningControls memberMode={memberMode} selectedReviewerIds={selectedReviewerIds} reviewers={reviewers} patentsPerReviewer={patentsPerReviewer} leftoverStrategy={leftoverStrategy} onModeChange={setMemberMode} onToggleSelect={(id) => setSelectedReviewerIds((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id])} onPatentsPerReviewerChange={setPatentsPerReviewer} onLeftoverStrategyChange={setLeftoverStrategy} /><ReviewPanel assignments={assignments} reviewers={reviewers} expandedPatent={expandedPatent} onExpand={setExpandedPatent} onAssign={updateAssignment} onApprove={approveAssignment} onGenerate={generateAssignments} unassigned={unassigned} patentsPerReviewer={patentsPerReviewer} leftoverStrategy={leftoverStrategy} onPatentsPerReviewerChange={setPatentsPerReviewer} onLeftoverStrategyChange={setLeftoverStrategy} />{assignments.length > 0 ? <button type="button" className={styles.continueButton} onClick={() => setTab('send')}>Continue to Send assignments →</button> : null}</>}
         {tab === 'team' && <TeamPanel reviewers={reviewers} selectedReviewerIds={selectedReviewerIds} memberMode={memberMode} onModeChange={setMemberMode} onToggleSelect={(id) => setSelectedReviewerIds((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id])} onToggleActive={toggleReviewer} onImport={importMembers} />}
@@ -171,4 +173,141 @@ function PreferencesPanel({ weight, maxAssignments, chatInput, chatMessage, onIn
 function PortalPanel({ assignments }: { assignments: Assignment[] }) {
   const myAssignments = useMemo(() => assignments.filter((assignment) => assignment.reviewerId === 'rev-01'), [assignments]);
   return <div className={styles.panel}><div className={styles.panelIntro}><div><p className={styles.kicker}>Tab 05 · Assignee view</p><h3>My assigned patents</h3><p>A focused view for a volunteer who wants the context to do a thoughtful review.</p></div><span className={styles.countBadge}>{myAssignments.length} assigned</span></div>{!myAssignments.length ? <div className={styles.emptyState}><h3>No patents assigned yet</h3><p>Approved assignments for Maya will appear here.</p></div> : <div className={styles.portalList}>{myAssignments.map((assignment) => { const patent = patents.find((item) => item.id === assignment.patentId)!; return <article className={styles.portalCard} key={assignment.patentId}><div className={styles.portalTop}><div><span className={styles.cardEyebrow}>{patent.id}</span><h3>{patent.title}</h3></div><span className={styles.score}>{assignment.score}% <small>match</small></span></div><div className={styles.themeTags}><span>{patent.primaryTheme}</span><span>{patent.secondaryTheme}</span></div><p>{patent.primer}</p><details><summary>Open primer resources</summary><ol>{patent.links.map((link) => <li key={link.label}><a href={link.url} target="_blank" rel="noreferrer">{link.label} ↗</a></li>)}</ol></details></article>; })}</div>}</div>;
+}
+
+function CaseStudyPanel(){
+  return (
+    <div className={styles.panel}>
+      <div className={styles.panelIntro}>
+        <div>
+          <p className={styles.kicker}>Case Study · Patent Assignment MVP</p>
+          <h3>From ambiguous requirements to a stakeholder-validated MVP</h3>
+          <p>An end-to-end overview of discovery, architecture, team leadership, and validation.</p>
+        </div>
+        <span className={styles.countBadge}>Validated MVP</span>
+      </div>
+
+      <div className={styles.caseStudyTimelineCard}>
+        <div className={styles.caseStudyTimelineHeader}>
+          <span className={styles.cardEyebrow}>Project Milestone Timeline</span>
+          <span className={styles.timelineDuration}>Apr 2026 – Aug 2026</span>
+        </div>
+        <div className={styles.caseStudyTimeline}>
+          <div className={styles.timelineStep}>
+            <div className={styles.timelineNode}>1</div>
+            <div className={styles.stepInfo}>
+              <strong>Stakeholder Discovery</strong>
+              <small>Requirements & workflow audit</small>
+            </div>
+          </div>
+          <div className={styles.timelineConnector}>
+            <span className={styles.connectorTag}>2 days</span>
+            <div className={styles.connectorLine} />
+          </div>
+          <div className={styles.timelineStep}>
+            <div className={styles.timelineNode}>2</div>
+            <div className={styles.stepInfo}>
+              <strong>Initial UI Prototype</strong>
+              <small>Realistic mock data & flows</small>
+            </div>
+          </div>
+          <div className={styles.timelineConnector}>
+            <div className={styles.connectorLine} />
+          </div>
+          <div className={styles.timelineStep}>
+            <div className={styles.timelineNode}>3</div>
+            <div className={styles.stepInfo}>
+              <strong>Requirement Alignment</strong>
+              <small>Gap analysis & refinement</small>
+            </div>
+          </div>
+          <div className={styles.timelineConnector}>
+            <div className={styles.connectorLine} />
+          </div>
+          <div className={styles.timelineStep}>
+            <div className={styles.timelineNode}>4</div>
+            <div className={styles.stepInfo}>
+              <strong>2 Interns + Backend</strong>
+              <small>Technical direction & integration</small>
+            </div>
+          </div>
+          <div className={styles.timelineConnector}>
+            <div className={styles.connectorLine} />
+          </div>
+          <div className={styles.timelineStepHighlighted}>
+            <div className={styles.timelineNodeActive}>✓</div>
+            <div className={styles.stepInfo}>
+              <strong>Stakeholder & Committee Demo</strong>
+              <small>Validated MVP success</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.caseStudyContentGrid}>
+        <section className={styles.caseStudySection}>
+          <h4>Patent Assignment MVP</h4>
+          <p className={styles.caseStudyLead}>
+            From ambiguous requirements to a stakeholder-validated MVP.
+          </p>
+          <p>
+            I worked directly with the patent stakeholder at the start of the project to understand the existing workflow, gather requirements, and brainstorm potential solutions. Rather than spending weeks building against uncertain requirements, I turned those conversations into an initial UI prototype with realistic mock data and returned two days later to walk through it with the stakeholder.
+          </p>
+          <p>
+            The prototype created a concrete starting point for discussion, allowing us to identify gaps, refine the workflow, and align on what the MVP needed to accomplish before committing to the full implementation.
+          </p>
+        </section>
+
+        <section className={styles.caseStudySection}>
+          <h4>Architecting the Workflow</h4>
+          <p>I designed the end-to-end workflow around five core stages:</p>
+          <div className={styles.workflowChain}>
+            <div className={styles.workflowInputsGroup}>
+              <span className={styles.workflowBadge}>Patent Data</span>
+              <span className={styles.workflowPlus}>+</span>
+              <span className={styles.workflowBadge}>Member Data</span>
+            </div>
+            <span className={styles.workflowArrow}>→</span>
+            <span className={styles.workflowBadge}>Assignment</span>
+            <span className={styles.workflowArrow}>→</span>
+            <span className={styles.workflowBadge}>Human Review</span>
+            <span className={styles.workflowArrow}>→</span>
+            <span className={styles.workflowBadge}>Communication</span>
+          </div>
+          <ul className={styles.workflowStagesList}>
+            <li><strong>Patent Data:</strong> Patent information can be uploaded or eventually ingested from the patent portal. I defined the expected data structure and created representative mock objects matching future production data.</li>
+            <li><strong>Member Data:</strong> Member information follows a similar structured data model, allowing the workflow to operate on realistic member records before production ingestion was ready.</li>
+            <li><strong>Assignment:</strong> Patent and member data are fed into a matching algorithm to generate proposed reviewer assignments.</li>
+            <li><strong>Human Review:</strong> The lead patent user reviews proposed assignments, makes manual overrides, and finalizes the roster.</li>
+            <li><strong>Communication:</strong> The system generates tailored emails and patent primers for finalized assignments, which the lead can review and edit before sending.</li>
+          </ul>
+          <p>
+            This approach allowed us to build the application around expected production data contracts, so future data pipelines could be integrated seamlessly without redesigning the rest of the workflow.
+          </p>
+        </section>
+
+        <section className={styles.caseStudySection}>
+          <h4>From Prototype to Product</h4>
+          <p>
+            After aligning on requirements and workflow, I led two interns through the summer implementation, providing technical direction while they built out the backend and integrated the system with the prototype.
+          </p>
+          <p>
+            I continued working closely with the stakeholder throughout development to iterate on the product and ensure the implementation matched the intended operational workflow.
+          </p>
+        </section>
+
+        <section className={styles.caseStudySection}>
+          <h4>Outcome</h4>
+          <p>
+            The completed MVP was presented to the stakeholder and patent committee lead, where it received enthusiastic feedback and recognition from a Dell Fellow.
+          </p>
+          <p>
+            The project successfully took an initially ambiguous problem and turned it into a working, stakeholder-validated end-to-end product, while establishing the robust architecture and data contracts needed for future production integrations.
+          </p>
+          <p></p>
+        </section>
+        <br></br>
+      </div>
+    </div>
+  );
 }

@@ -1,3 +1,17 @@
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typing-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-weight: 300;
+  color: #cba2a1;
+  animation: blink 1s infinite;
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -72,7 +86,7 @@
   background: none;
   border: none;
   border-bottom: 1px solid currentColor;
-  color: #cba2a1;
+  color: #332113;
   cursor: pointer;
   font-family: inherit;
   font-size: inherit;

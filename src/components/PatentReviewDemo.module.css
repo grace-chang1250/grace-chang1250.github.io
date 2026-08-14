@@ -398,6 +398,235 @@
 .emailBody { padding: 12px 0; color: var(--color-text); font-size: .72rem; line-height: 1.5; }
 .emailBody p { min-height: 1em; }
 .primerBlock { padding: 12px; border-radius: 8px; background: var(--color-surface-alt); color: var(--color-text); font-size: .7rem; line-height: 1.5; }
+
+/* Case Study Panel Designer Styling */
+.caseStudyTimelineCard {
+  margin-top: 10px;
+  padding: 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface-alt);
+}
+
+.caseStudyTimelineHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.timelineDuration {
+  color: var(--color-text);
+  font-size: .72rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.caseStudyTimeline {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.timelineStep, .timelineStepHighlighted {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  min-width: 140px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+}
+
+.timelineStepHighlighted {
+  border-color: var(--color-success);
+  background: var(--color-success-bg);
+}
+
+.timelineNode, .timelineNodeActive {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+  font-size: .7rem;
+  font-weight: 800;
+}
+
+.timelineNodeActive {
+  background: var(--color-success);
+  color: #fff;
+}
+
+.stepInfo {
+  display: grid;
+  gap: 2px;
+}
+
+.stepInfo strong {
+  font-size: .78rem;
+  color: var(--color-text);
+  line-height: 1.25;
+}
+
+.timelineStepHighlighted .stepInfo strong {
+  color: var(--color-success);
+}
+
+.stepInfo small {
+  color: var(--color-text-muted);
+  font-size: .65rem;
+}
+
+.timelineConnector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 2px;
+}
+
+.connectorTag {
+  padding: 2px 6px;
+  border-radius: 99px;
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+  font-size: .62rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.connectorLine {
+  width: 24px;
+  height: 2px;
+  background: var(--color-border);
+}
+
+.caseStudyContentGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.caseStudySection {
+  padding: 22px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+.caseStudySection h4 {
+  margin: 0 0 12px;
+  font-size: 1.05rem;
+  color: var(--color-text);
+  letter-spacing: -0.01em;
+}
+
+.caseStudyLead {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: .88rem;
+  margin-bottom: 12px;
+}
+
+.caseStudySection p {
+  margin: 0 0 12px;
+  color: var(--color-text-muted);
+  font-size: .8rem;
+  line-height: 1.6;
+}
+
+.caseStudySection p:last-child {
+  margin-bottom: 0;
+}
+
+.workflowChain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0 16px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+}
+
+.workflowBadge {
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: .7rem;
+  font-weight: 700;
+}
+
+.workflowArrow {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: .85rem;
+}
+
+.workflowInputsGroup {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px;
+  border-radius: 8px;
+  background: var(--color-surface);
+  border: 1px dashed var(--color-border);
+}
+
+.workflowPlus {
+  color: var(--color-text-muted);
+  font-weight: 700;
+  font-size: .75rem;
+}
+
+
+.workflowStagesList {
+  margin: 0 0 16px;
+  padding-left: 20px;
+  display: grid;
+  gap: 10px;
+  color: var(--color-text-muted);
+  font-size: .78rem;
+  line-height: 1.55;
+}
+
+.workflowStagesList li strong {
+  color: var(--color-text);
+}
+
+@media (max-width: 960px) {
+  .caseStudyContentGrid {
+    grid-template-columns: 1fr;
+  }
+  .caseStudyTimeline {
+    grid-template-columns: 1fr;
+  }
+  .timelineConnector {
+    align-items: flex-start;
+    padding: 6px 0 6px 12px;
+  }
+  .connectorLine {
+    height: 20px;
+    width: 2px;
+  }
+}
+
 .primerBlock p { margin: 7px 0; }
 .primerBlock strong { display: block; margin-top: 10px; color: var(--color-text); font-size: .68rem; }
 .primerBlock ol { margin: 5px 0 0; padding-left: 18px; }

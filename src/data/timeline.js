@@ -5,7 +5,7 @@ export const timeline = [
     role: 'Rotation IV · Full-stack & Leadership',
     product: 'DPC TCO Tool & Patent Assignment',
     org: 'Dell Technologies',
-    summary: 'Containerized Total Cost of Ownership platform with two PdMs — multi-step wizard, real-time ROI engine, Okta SSO, RBAC — then prototyped a patent-assignment MVP as sole stakeholder while mentoring four interns.',
+    summary: 'Built a full-stack sales platform that turned a 2–3 day manual TCO/ROI workflow into ~10 minutes, then drove an AI-assisted patent assignment MVP from ambiguous requirements to stakeholder testing while leading four interns.',
     stack: ['React', 'Python', 'Docker', 'SQLite', 'Okta OIDC'],
     links: [
       { href: '#patent-project', label: 'View the Patent Tool UI Prototype' },
@@ -17,8 +17,8 @@ export const timeline = [
     role: 'Rotation III · Infrastructure',
     product: 'AI Storage Control Plane',
     org: 'Dell Technologies',
-    summary: 'Serviceability API for node and bundle state, label-driven node add/remove, and Kubernetes CRD isolation on Canonical K8s.',
-    stack: ['Go', 'Kubernetes', 'Canonical K8s', 'REST'],
+    summary: 'Built a serviceability API for node installation/configuration and software bundle state; implemented label-driven node lifecycle management and validated multi-namespace Kubernetes CRD isolation.',
+    stack: ['Go', 'Kubernetes', 'Python', 'REST'],
   },
   {
     id: 'dell-rotation-ii',
@@ -26,7 +26,7 @@ export const timeline = [
     role: 'Rotation II · Open Source',
     product: 'Omnia Backend',
     org: 'Dell Technologies',
-    summary: 'Dual-level jsonschema and Ansible validation across 15 config files, catching IP overlaps before they became multi-hour bare-metal install failures.',
+    summary: 'Built dual-level jsonschema + Ansible validation across 15 configuration files, catching conflicting values and overlapping IP ranges before they caused multi-hour bare-metal installation failures.',
     stack: ['Python', 'Ansible', 'Linux'],
   },
   {
@@ -35,7 +35,7 @@ export const timeline = [
     role: 'Rotation I · Frontend',
     product: 'PowerProtect Data Manager',
     org: 'Dell Technologies',
-    summary: 'UI features and end-to-end tests for a multicloud data protection platform. Won the internal UI hackathon with PPDM 3D — a unified instance carousel with an AI chatbot.',
+    summary: 'Built UI features and end-to-end tests for a multicloud data protection platform; won the internal UI hackathon with PPDM 3D, a unified instance carousel paired with an AI chatbot.',
     stack: ['Angular', 'TypeScript', 'Cypress'],
   },
   {
@@ -44,8 +44,8 @@ export const timeline = [
     role: 'Software Engineer Intern',
     product: 'Netezza Performance Server UDX',
     org: 'IBM',
-    summary: 'Built user-defined extensions on the Netezza Performance Server, a massively parallel analytics database.',
-    stack: ['Java', 'SQL', 'Netezza'],
+    summary: 'Expanded SQL capabilities with a C++ user-defined function that safely exposed approved Python-driven operations; built JSON-based history analysis and validated workflows across containers, Jupyter, and nzpy.',
+    stack: ['C++', 'Python', 'SQL'],
   },
   {
     id: 'liberty-mutual-intern',
@@ -53,7 +53,7 @@ export const timeline = [
     role: 'Software Engineer Intern',
     product: 'Claims-filing data pipeline',
     org: 'Liberty Mutual',
-    summary: 'Data pipeline supporting automated insurance claims filing and ingestion.',
-    stack: ['Python', 'ETL'],
+    summary: 'Built an automated API-driven pipeline to ingest, transform, clean, and validate thousands of claims filings, replacing manual updates with automated change detection and propagation.',
+    stack: ['JavaScript', 'AWS Lambda', 'Node.js'],
   },
 ];

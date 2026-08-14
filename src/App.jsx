@@ -5,6 +5,47 @@ import { PrototypeWindow } from './components/PatentReviewDemo.tsx'
 import { timeline } from './data/timeline'
 import './App.css'
 
+function HeroTypingHeader() {
+  const fullText = "Hi, I'm Grace!";
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(120);
+
+  useEffect(() => {
+    const handleTyping = () => {
+      const i = loopNum % 1;
+      const fullTxt = fullText;
+
+      setDisplayedText(
+        isDeleting
+          ? fullTxt.substring(0, displayedText.length - 1)
+          : fullTxt.substring(0, displayedText.length + 1)
+      );
+
+      if (!isDeleting && displayedText === fullTxt) {
+        // Pause at full text before deleting or just keep it steady
+        setTimeout(() => setIsDeleting(true), 2500);
+        setTypingSpeed(80);
+      } else if (isDeleting && displayedText === "") {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+        setTypingSpeed(120);
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [displayedText, isDeleting, loopNum, typingSpeed]);
+
+  return (
+    <h1>
+      {displayedText}
+      <span className="typing-cursor" aria-hidden="true">|</span>
+    </h1>
+  );
+}
+
 function App() {
   const [open, setOpen] = useState(null)
   const [prototype, setPrototype] = useState(null)
@@ -106,7 +147,7 @@ function App() {
           <div className="nav-content">
             <span className="nav-brand">Grace Chang</span>
             <div className="nav-links">
-              <a href="#experience">Timeline</a>
+              <a href="#experience">Career</a>
               <a href="#about">About</a>
               <a href="#contact">Contact</a>
             </div>
@@ -114,22 +155,27 @@ function App() {
         </nav>
 
         <section className="hero">
+          <br></br>
+          <br></br>
+          <br></br>
           <div className="hero-content">
-            <h1>Building resilient systems through <span className="accent">technical adaptability</span>.</h1>
+            <HeroTypingHeader />
           </div>
           <div className="hero-text">
-            <p>Software Engineer at Dell Technologies, specialized in the full lifecycle of data infrastructure—from Kubernetes storage control planes to modern cloud interfaces.</p>
+            <p>Full-Stack Software Engineer leveraging AI to build better software, faster.</p>
             <a href="#experience" className="cta-button">
               <span className="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                 </svg>
               </span>
-              View timeline
+              View my career trajectory
             </a>
           </div>
         </section>
-
+        <br></br>
+        <br></br>
+        <br></br>
         <section id="experience" className="experience">
           <div className="section-header">
             <h2>Career Trajectory</h2>
@@ -161,7 +207,7 @@ function App() {
         <section id="about" className="about">
           <div className="about-content">
             <div className="about-image">
-              <img src="/portrait.jpg" alt="Portrait of the engineer working at a desk in warm natural light" loading="lazy" />
+              <img src="/grace_chang_profile.jpeg" alt="Portrait of Grace Chang" loading="lazy" />
             </div>
             <div className="about-text">
               <h2>Adaptable by design.</h2>
@@ -171,10 +217,11 @@ function App() {
                 <div className="toolkit">
                   <h4>Current Toolkit</h4>
                   <div className="toolkit-items">
-                    <div className="toolkit-item"><span>Python & Go</span></div>
-                    <div className="toolkit-item"><span>TypeScript & React</span></div>
+                    <div className="toolkit-item"><span>Python & Go & Java</span></div>
+                    <div className="toolkit-item"><span>JavaScript & React</span></div>
                     <div className="toolkit-item"><span>Kubernetes & Docker</span></div>
                     <div className="toolkit-item"><span>Ansible & SQL</span></div>
+                    <div className="toolkit-item"><span>Claude Code, Devin, MCP</span></div>
                   </div>
                 </div>
               </div>
@@ -191,14 +238,14 @@ function App() {
             <div className="contact-links">
               <a href="mailto:grace.chang1250@gmail.com" className="contact-email">grace.chang1250@gmail.com</a>
               <div className="social-links">
-                <a href="#">LinkedIn</a>
+                {/* <a href="#">LinkedIn</a>
                 <a href="#">GitHub</a>
-                <a href="#">Resume</a>
+                <a href="#">Resume</a> */}
               </div>
             </div>
           </div>
           <div className="footer-bottom">
-            <span>Built with craftsmanship & intent</span>
+            {/* <span>Built with craftsmanship & intent</span> */}
             <span>Boston, Massachusetts</span>
           </div>
         </footer>
