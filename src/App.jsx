@@ -212,7 +212,7 @@ function App() {
             <div className="about-text">
               <h2>Adaptable by design.</h2>
               <div className="about-text-content">
-                <p>I thrive in technical ambiguity. Three and a half years in the Dell Engineering Rotation Program taught me that the strongest engineers aren't masters of a single language—they're architects who can absorb a new domain quickly and ship. I went from Angular UI components to Ansible and Python validation tooling to Golang and Kubernetes control planes to full-stack React and Python and AI-assisted delivery.</p>
+                <p>I thrive in technical ambiguity. Four years in the Dell Engineering Rotation Program taught me that the strongest engineers aren't masters of a single language—they're architects who can absorb a new domain quickly and ship. I went from Angular UI components to Ansible and Python validation tooling to Golang and Kubernetes control planes to full-stack React and Python and AI-assisted delivery.</p>
                 <p>Beyond the terminal, I build processes and people. I mentored four summer interns across four projects, built onboarding documentation, ran requirement-gathering sessions directly with product owners, and turned raw stakeholder pain points into working prototypes.</p>
                 <div className="toolkit">
                   <h4>Current Toolkit</h4>
